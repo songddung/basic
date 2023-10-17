@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function loadPage(pageNumber) {
+    
+    $.ajax({
+        type: "GET",
+        url: "/html/emp?pageNumber=" + pageNumber, // 서버의 컨트롤러 엔드포인트 URL로 설정
+        success: function(data) {
+            // 서버로부터 받은 데이터를 사용하여 페이지 내용을 업데이트
+            // 예를 들어, 테이블 내용을 업데이트하거나 뷰에 새로운 데이터를 삽입하는 등의 작업 수행
+        },
+        error: function() {
+            // 오류 처리 로직 추가
+        }
+    });
+}
+</script>
+
+<style>
+.pagination{
+display: flex;
+    justify-content: space-between;
+}
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<th: block th:if="${session.user_id != null}">
+    [[ ${session.user_id} ]] 님 반갑습니다.
+    <button onclick="window.location = '/auth/logout'">로그아웃</button>
+</th:>
+
+<th: block th:unless="${session.user_id != null}">
+    
+    <button onclick="window.location= '/auth/login'">로그인</button>
+</th:>
+
+[[${session.id}]]
+[[${session.name}]]
+
+
+    <table class="table table-hover">
+        <tr style="font-weight: bold;">
+            <td>번호</td>
+            <td>이름</td>
+            <td>직무</td>
+            <td>입사일자</td>
+            <td>급여</td>
+            <td>근무부서</td>
+        </tr>
+        <tr th:each="emp : ${empList}"> 
+            <td>[[ ${emp.empno} ]]</td>
+            <td>[[ ${emp.ename} ]]</td>
+            <td>[[ ${emp.job} ]]</td>
+            <td>[[ ${emp.hiredate} ]]</td>
+            <td>[[ ${emp.sal} ]]</td>
+            <td>[[ ${emp.dept.dname} ]]</td>
+        </tr>
+    </table>
+    <hr>
+
+
+
+
+
+
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="@{/html/emp(page=${pageNumber})}=">Prev</a></li>
+
+        <th:block th:each="pageNumber : ${#numbers.sequence(1, 10)}">
+        
+        <a th:if="${pageNumber == page}" th:text="${pageNumber}"></a>
+        <a th:unless="${pageNumber == page}" th:href="@{/html/emp(page=${pageNumber})}" th:text="${pageNumber}"></a>
+    
+        </th:block>
+        
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+</body>
+
+</html>

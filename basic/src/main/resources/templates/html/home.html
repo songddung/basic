@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p th:if="${session.id} != null" th:text="${session.ownerByName} + '님 반갑습니다.'"></p>
+    <p th:unless="${session.name} != null">
+        로그인되어 있지 않습니다.
+    </p>
+</body>
+
+</html>

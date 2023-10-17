@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    li a{
+        text-decoration: none;
+    }
+    ul{
+        list-style-type: none;
+    }
+
+</style>
+<body>
+
+    <ul th:each="board : ${boardList}">
+        <li>
+            <a th:href="@{/board/detail(id=${board.id})}">
+                [[ ${board.id} ]]. [[ ${board.title} ]] ([[${#lists.size(board.comments)}]])
+            </a>
+            </li>
+    </ul>
+
+</body>
+
+</html>

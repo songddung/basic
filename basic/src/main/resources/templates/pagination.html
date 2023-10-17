@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <th:block th:each="pageNumber : ${#numbers.sequence(startPage, endPage)}">
+
+        <span th:if="${page} == ${pageNumber}" th:text="${pageNumber}" style="font-weight:bold"></span>
+
+        <span th:unless="${page} == ${pageNumber}" th:text="${pageNumber}"></span>
+
+    </th:block>
+
+<!-- a태그로 페이지 이동하기 -->
+    <th:block th:each="pageNumber : ${#numbers.sequence(1, 10)}">
+        <a th:if = "${pageNumber == page}"  th:text="${pageNumber}"></a>
+        <a th:unless = "${pageNumber == page}" th:href="@{/pagination(page=${pageNumber})}" th:text="${pageNumber}"></a>
+    </th:block>
+</body>
+
+</html>

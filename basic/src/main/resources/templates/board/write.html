@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/board/write" method="post" enctype="multipart/form-data">
+        <!-- 제목 , 내용 -->
+
+        <th:block th:if = "${session.name} == null">
+        작성자 : <Input type="text" name="member" placeholder="입력해주세요"></Input>
+        </th:block>
+        
+        <th:block th:unless = "${session.name} == null">
+        작성자 : <Input type="text" name="member" th:vlaue= "${session.name}"></Input>
+        </th:block>
+        <br><br>
+        제목 : <Input type="text" name="title"></Input>
+        
+        <br>
+        <br>
+        <hr>
+        <textarea name="content"  cols="30" rows="10">내용</textarea>
+       <br> <br> <input type="file" name="file"><br><br>
+        <button>작성 완료</button><br>
+    </form>
+</body>
+
+</html>
